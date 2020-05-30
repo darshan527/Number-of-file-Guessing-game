@@ -7,17 +7,22 @@ function chk {
                 echo "Low"
         elif [[ $1 -eq $2 ]]
         then
-                echo "Equal"
+                echo "Congratulations, you got it right"
         fi
 }
 while [[ 1 -gt 0 ]]
 do
-        echo "Enter our guess"
+        echo "Enter your guess"
         read n
-        t=$(ls | wc -l)
-        chk $n $t
-        if [[ $n -eq $t ]]
-        then
-                break
-        fi
+	if [[ $n =~ ^[0-9]*$ ]]
+	then
+        	t=$(ls -la | egrep -c '^-')
+        	chk $n $t
+        	if [[ $n -eq $t ]]
+        	then
+                	break
+        	fi
+	else
+		echo "Please enter only integer"
+	fi
 done
